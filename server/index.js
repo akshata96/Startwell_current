@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
-/* const bcrypt = require("bcrypt"); */
 const saltRounds = 10;
 
 const app = express();
@@ -14,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:8081"],
+    origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
@@ -32,18 +31,6 @@ app.use((req, res, next) => {
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/*app.use(
-  session({
-    key: "userId",
-    secret: "subscribe",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      expires: 60 * 60 * 24,
-    },
-  })
-);
-*/
 
 const db = mysql.createConnection({
   user: "root",
@@ -54,12 +41,8 @@ const db = mysql.createConnection({
 
 app.post("/register", (req, res) => {
   
-/*
-  const password = req.body.password;
-  const password = req.body.password;
-  const password = req.body.password;
-  const password = req.body.password;
-  */
+
+  console.log(req.body);
 
   const userId= req.body.userid;
   const userType = req.body.usertype;
@@ -74,10 +57,7 @@ app.post("/register", (req, res) => {
 
 
 
-  /*bcrypt.hash(password, saltRounds, (err, hash) => {
-    if (err) {
-      console.log(err);
-    } */
+  
 
     db.query(
       "INSERT INTO Users (UserID,UserType,pass,First_Name,Last_Name,DOB,sex,EmailID) VALUES (?,?,?,?,?,?,?,?)",
@@ -108,7 +88,7 @@ app.post("/login", (req, res) => {
   console.log(password);
 
   db.query(
-    "SELECT * FROM login WHERE username = ?;",
+    "SELECT * FROM Users WHERE UserID = ?;",
     username,
     (err, result) => {
       if (err) {
@@ -117,13 +97,16 @@ app.post("/login", (req, res) => {
   
       if (result.length > 0) {
         console.log("***");
-        console.log(result[0].password);
+        console.log(result);
+        console.log(result[0]);
+        console.log(result[3]);
+        console.log("***");
+        console.log(result[4]);
 
-        if (password == result[0].password.toString()) {
-          req.session.user = result;
-          console.log(req.session.user);
-         
-          res.send(result);
+
+        if (password == result[0].Pass.toString()) {
+  
+          res.send({"status":true});
         } else {
           res.send({ message: "Wrong username/password combination!" });
         }

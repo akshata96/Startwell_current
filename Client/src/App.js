@@ -7,6 +7,7 @@ import AuthService from "./services/auth.service";
 import {BrowserRouter as Router} from 'react-router-dom'
 import Login from "./components/login.component";
 import Register from "./components/register.component";
+import Profile from "./components/profile.component";
 import Homepage  from './HomePage.js'
 
 
@@ -18,6 +19,7 @@ import { Layout, Menu, Breadcrumb, Avatar, Card, Col, Row, Image} from 'antd';
 import image from './Assets/wound.jpg'
 
 import logo from './Assets/logo.PNG'
+import Success from "./components/success.component";
 
 const { Header, Content, Footer } = Layout;
 
@@ -91,6 +93,8 @@ class App extends Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/success" component={Success} />
           </Switch>
         </div>
       </div>
