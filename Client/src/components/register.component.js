@@ -1,28 +1,17 @@
 import React, { Component,useState } from "react";
-
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
-//import DatePicker from 'react-date-picker';
+
+
 
 import AuthService from "../services/auth.service";
 
 const required = value => {
   if (!value) {
     return (
-      <div className="alert alert-danger" role="alert">
+      <div >
         This field is required!
-      </div>
-    );
-  }
-};
-
-const email = value => {
-  if (!isEmail(value)) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This is not a valid email.
       </div>
     );
   }
@@ -31,7 +20,7 @@ const email = value => {
 const vusername = value => {
   if (value.length < 3 || value.length > 20) {
     return (
-      <div className="alert alert-danger" role="alert">
+      <div>
         The username must be between 3 and 20 characters.
       </div>
     );
@@ -41,7 +30,7 @@ const vusername = value => {
 const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
     return (
-      <div className="alert alert-danger" role="alert">
+      <div>
         The password must be between 6 and 40 characters.
       </div>
     );
@@ -192,11 +181,11 @@ export default class Register extends Component {
               <div>
 
               <div className="form-group">
-                  <label htmlFor="email">UserId</label>
+                  <label>UserId</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="email"
+                    name="UserId"
                     value={this.state.UserId}
                     onChange={this.onChangeUserUserId}
                 
@@ -204,11 +193,11 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="username">FirstName</label>
+                  <label>FirstName</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="username"
+                    name="firstname"
                     value={this.state.firstname}
                     onChange={this.onChangeUserFirstname}
                     validations={[required, vusername]}
@@ -216,23 +205,23 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email">LastName</label>
+                  <label>LastName</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="email"
+                    name="lastname"
                     value={this.state.lastname}
                     onChange={this.onChangeUserLastname}
-                    validations={[required, email]}
+                
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email">DOB</label>
+                  <label>DOB</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="email"
+                    name="dob"
                     value={this.state.dob}
                     onChange={this.onChangeDob}
                   />
@@ -240,23 +229,22 @@ export default class Register extends Component {
 
 
                 <div className="form-group">
-                  <label htmlFor="email">Email</label>
+                  <label>Email</label>
                   <Input
                     type="text"
                     className="form-control"
                     name="email"
                     value={this.state.email}
                     onChange={this.onChangeEmail}
-                    validations={[required, email]}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email">UserType</label>
+                  <label>UserType</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="email"
+                    name="usertype"
                     value={this.state.usertype}
                     onChange={this.onChangeUserType}
                   />
@@ -264,11 +252,11 @@ export default class Register extends Component {
 
 
                 <div className="form-group">
-                  <label htmlFor="email">Sex</label>
+                  <label >Sex</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="email"
+                    name="sex"
                     value={this.state.sex}
                     onChange={this.onChangeSex}
                   />
@@ -276,7 +264,7 @@ export default class Register extends Component {
 
 
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label>Password</label>
                   <Input
                     type="password"
                     className="form-control"

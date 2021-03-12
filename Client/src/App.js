@@ -7,11 +7,6 @@ import AuthService from "./services/auth.service";
 import {BrowserRouter as Router} from 'react-router-dom'
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Home from "./components/home.component";
-import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
 import Homepage  from './HomePage.js'
 
 
@@ -35,8 +30,7 @@ class App extends Component {
 
     this.state = {
       showModeratorBoard: false,
-      /*showAdminBoard: false,
-      currentUser: undefined, */
+  
     };
   }
 
@@ -46,8 +40,6 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        /*showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),*/
       });
     }
   }
@@ -57,7 +49,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, /* showModeratorBoard, showAdminBoard */ } = this.state;
+    const { currentUser } = this.state;
 
     return (
       <div>
