@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
-const bcrypt = require("bcrypt");
+/* const bcrypt = require("bcrypt"); */
 const saltRounds = 10;
 
 const app = express();
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
+/*app.use(
   session({
     key: "userId",
     secret: "subscribe",
@@ -43,6 +43,7 @@ app.use(
     },
   })
 );
+*/
 
 const db = mysql.createConnection({
   user: "root",

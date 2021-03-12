@@ -63,7 +63,7 @@ export default class Register extends Component {
     this.onChangeUserUserId = this.onChangeUserUserId.bind(this);
 
     this.state = {
-      userid:"",
+      UserId:"",
       firstname: "",
       lastname: "",
       dob:"",
@@ -78,7 +78,7 @@ export default class Register extends Component {
 
   onChangeUserUserId(e) {
     this.setState({
-      userid: e.target.value
+      UserId: e.target.value
     });
   }
 
@@ -149,7 +149,7 @@ export default class Register extends Component {
         this.state.usertype,
         this.state.sex,
         this.state.password,
-        this.state.userid
+        this.state.UserId
 
       ).then(
         response => {
@@ -197,7 +197,7 @@ export default class Register extends Component {
                     type="text"
                     className="form-control"
                     name="email"
-                    value={this.state.userid}
+                    value={this.state.UserId}
                     onChange={this.onChangeUserUserId}
                 
                   />

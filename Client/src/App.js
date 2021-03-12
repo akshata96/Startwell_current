@@ -35,8 +35,8 @@ class App extends Component {
 
     this.state = {
       showModeratorBoard: false,
-      showAdminBoard: false,
-      currentUser: undefined,
+      /*showAdminBoard: false,
+      currentUser: undefined, */
     };
   }
 
@@ -46,8 +46,8 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        /*showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
+        showAdminBoard: user.roles.includes("ROLE_ADMIN"),*/
       });
     }
   }
@@ -57,7 +57,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser, /* showModeratorBoard, showAdminBoard */ } = this.state;
 
     return (
       <div>
@@ -99,10 +99,6 @@ class App extends Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} />
           </Switch>
         </div>
       </div>
