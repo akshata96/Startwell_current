@@ -6,11 +6,6 @@ export default class Success extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      redirect: null,
-      userReady: false,
-      currentUser: { username: "" }
-    };
   }
 
  

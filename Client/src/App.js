@@ -8,15 +8,15 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Profile from "./components/profile.component";
-import Homepage  from './HomePage.js'
+import Home  from './components/home.component';
+import Newsletter from "./components/Newsletter.component";
 
 
 import 'antd/dist/antd.css';
-import { Button, Typography} from 'antd';
+
 import { UserOutlined, PoweroffOutlined } from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb, Avatar, Card, Col, Row, Image} from 'antd';
 
-import image from './Assets/wound.jpg'
 
 import logo from './Assets/logo.PNG'
 import Success from "./components/success.component";
@@ -81,9 +81,9 @@ class App extends Component {
       <header className="App-header">
       <Route 
         exact 
-        path = {"/Homepage"} 
+        path = {"/home"} 
         render = {props =>(
-         <Homepage />
+         <Home />
         )}
         />
       </header>
@@ -95,6 +95,8 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/success" component={Success} />
+            <Route exact path="/Newsletter" component={Newsletter} />
+
           </Switch>
         </div>
       </div>

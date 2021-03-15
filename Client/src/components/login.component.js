@@ -12,9 +12,6 @@ import { Button, Typography} from 'antd';
 import { UserOutlined, PoweroffOutlined } from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb, Avatar, Card, Col, Row, Image} from 'antd';
 import '../Homepage.css';
-import image from '../Assets/wound.jpg'
-import { Link } from 'react-router-dom';
-import logo from '../Assets/logo.PNG'
 
 const { Header, Content, Footer } = Layout;
 

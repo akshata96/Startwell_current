@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:9000"],
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
@@ -39,7 +39,15 @@ const db = mysql.createConnection({
   database: "startwellDB",
 });
 
+
 app.post("/register", (req, res) => {
+     const sqlInsert = "INSERT INTO Users (UserID,UserType,pass,First_Name,Last_Name,DOB,sex,EmailID) VALUES ('bhar','U','123456','bharathi','kothandan','9999-9-9','F','bharathi@gmail.com')";
+     db.query(sqlInsert,(err,result )=> {
+       res.send("succesfully registered");
+    
+     });
+});
+ app.post("/register", (req, res) => {
   
 
   console.log(req.body);
@@ -54,11 +62,6 @@ app.post("/register", (req, res) => {
   const email = req.body.email;
 
   
-
-
-
-  
-
     db.query(
       "INSERT INTO Users (UserID,UserType,pass,First_Name,Last_Name,DOB,sex,EmailID) VALUES (?,?,?,?,?,?,?,?)",
   
