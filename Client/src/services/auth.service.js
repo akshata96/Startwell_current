@@ -41,6 +41,14 @@ class AuthService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
+
+ registerEmail(email) 
+  {
+return axios.post(API_URL+"Newsletter", {email},{
+  headers: headers
+});
+     
+ }
 }
 
 export default new AuthService();
