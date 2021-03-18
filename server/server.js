@@ -5,8 +5,13 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const saltRounds = 10;
-
+var jwt = require("jsonwebtoken");
+const keyConfig = require("./config/key.config");
 const app = express();
+
+const authJWT = require("./authJwt");
+
+
 app.use(express.json());
 app.use(
   cors({
@@ -58,17 +63,21 @@ app.post("/Newsletter", (req, res) => {
   const password = req.body.password;
   const firstName = req.body.firstname;
   const lastName = req.body.lastname;
-  const dob = req.body.dob;
-  const sex = req.body.sex;
+
   const email = req.body.email;
 
   
     db.query(
-      "INSERT INTO Users (UserID,UserType,pass,First_Name,Last_Name,DOB,sex,EmailID) VALUES (?,?,?,?,?,?,?,?)",
+      "INSERT INTO Users (UserID,UserType,pass,First_Name,Last_Name,EmailID) VALUES (?,?,?,?,?,?)",
   
-      [userId,userType,password,firstName,lastName,dob,sex,email],
+      [userId,userType,password,firstName,lastName,email],
       (err, result) => {
+        if(err)
+        {res.send({ "message": err});
+        }
+        if(result) {
         res.send({ "status": true});
+        }
         console.log(err);
       }
     );
@@ -82,6 +91,14 @@ app.get("/login", (req, res) => {
     res.send({ loggedIn: false });
   }
 });
+
+
+app.post("/profile", [authJWT.verifyToken],(req, res) => {
+  const username = req.body.username;
+  console.log(username);
+  res.send({message: username});
+});
+
 
 app.post("/login", (req, res) => {
   const username = req.body.username;
@@ -109,8 +126,11 @@ app.post("/login", (req, res) => {
 
 
         if (password == result[0].Pass.toString()) {
-  
-          res.send({"status":true});
+          var token = jwt.sign({ id: username }, keyConfig.secret, {
+            expiresIn: 500 // 86400 - 24 hours
+          });
+
+          res.send({"status":true,token:token,user:username});
         } else {
           res.send({ message: "Wrong username/password combination!" });
         }
@@ -123,4 +143,7 @@ app.post("/login", (req, res) => {
 
 app.listen(9000, () => {
   console.log("running server");
+  ;
 });
+
+

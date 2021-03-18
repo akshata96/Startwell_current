@@ -1,16 +1,26 @@
 import React, { Component,useState } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import Select from "react-validation/build/select";
 import CheckButton from "react-validation/build/button";
-
+import {isEmail} from "validator";
 
 
 import AuthService from "../services/auth.service";
+import { getOverflowOptions } from "antd/lib/tooltip/placements";
 
+const options = [
+  {
+    value: 'User',label: 'User'
+  },
+  {
+    value: 'Therapist',label: 'Therapist'
+  }
+]
 const required = value => {
   if (!value) {
     return (
-      <div >
+      <div className="alert alert-danger" role="alert">
         This field is required!
       </div>
     );
@@ -20,12 +30,35 @@ const required = value => {
 const vusername = value => {
   if (value.length < 3 || value.length > 20) {
     return (
-      <div>
+      <div className="alert alert-danger" role="alert">
         The username must be between 3 and 20 characters.
       </div>
     );
   }
 };
+
+
+const vemail = value => {
+  if (!isEmail(value)) {
+    return (
+      <div className="alert alert-danger" role="alert"> 
+        The is not a valid email.
+      </div>
+    );
+  }
+};
+
+
+const vuserid = value => {
+  if (value.length < 3 || value.length > 20) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The userId must be between 3 and 20 characters.
+      </div>
+    );
+  }
+};
+
 
 const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
@@ -46,8 +79,6 @@ export default class Register extends Component {
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeUserFirstname = this.onChangeUserFirstname.bind(this);
     this.onChangeUserLastname = this.onChangeUserLastname.bind(this);
-    this.onChangeDob = this.onChangeDob.bind(this);
-    this.onChangeSex= this.onChangeSex.bind(this);
     this.onChangeUserType = this.onChangeUserType.bind(this);
     this.onChangeUserUserId = this.onChangeUserUserId.bind(this);
 
@@ -55,11 +86,9 @@ export default class Register extends Component {
       userid:"",
       firstname: "",
       lastname: "",
-      dob:"",
       usertype:"",
       email: "",
       password: "",
-      sex:"",
       successful: false,
       message: ""
     };
@@ -100,19 +129,6 @@ export default class Register extends Component {
       password: e.target.value
     });
   }
-
-  onChangeDob(e) {
-    this.setState({
-      dob: e.target.value
-    });
-  }
-
-  onChangeSex(e) {
-    this.setState({
-      sex: e.target.value
-    });
-  }
-  
   onChangeUserType(e) {
     this.setState({
       usertype: e.target.value
@@ -133,17 +149,27 @@ export default class Register extends Component {
       AuthService.register(
         this.state.firstname,
         this.state.lastname,
-        this.state.dob,
         this.state.email,
         this.state.usertype,
-        this.state.sex,
         this.state.password,
         this.state.userid
 
       ).then(
-        () => {
+        data => {
+          if(data.message) 
+          {
+            console.log(data.message.code);
+            var errorMessage = "Failed to register";
+            if(data.message.code == "ER_DUP_ENTRY") 
+            errorMessage = "User already exist";
+            this.setState({
+              successful: false,
+              message: errorMessage
+            });
+          } else {
           this.props.history.push("/success");
           window.location.reload();
+          }
         },
         error => {
           const resMessage =
@@ -186,7 +212,7 @@ export default class Register extends Component {
                     name="userid"
                     value={this.state.userid}
                     onChange={this.onChangeUserUserId}
-                
+                    validations={[required, vuserid]}
                   />
                 </div>
 
@@ -210,18 +236,7 @@ export default class Register extends Component {
                     name="lastname"
                     value={this.state.lastname}
                     onChange={this.onChangeUserLastname}
-                
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>DOB</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="dob"
-                    value={this.state.dob}
-                    onChange={this.onChangeDob}
+                    validations={[required, vusername]}
                   />
                 </div>
 
@@ -234,30 +249,18 @@ export default class Register extends Component {
                     name="email"
                     value={this.state.email}
                     onChange={this.onChangeEmail}
+                    validations={[required, vemail]}
                   />
                 </div>
 
                 <div className="form-group">
                   <label>UserType</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="usertype"
-                    value={this.state.usertype}
-                    onChange={this.onChangeUserType}
-                  />
-                </div>
-
-
-                <div className="form-group">
-                  <label >Sex</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="sex"
-                    value={this.state.sex}
-                    onChange={this.onChangeSex}
-                  />
+                  <Select value={this.props.value} onChange={this.onChangeUserType}    className="form-control">
+                    {options.map((option)=> (
+                      <option value={option.value}>{option.label}</option>
+                    ))}
+                  </Select>
+                
                 </div>
 
 

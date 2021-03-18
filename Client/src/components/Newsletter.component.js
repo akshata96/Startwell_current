@@ -4,6 +4,7 @@ import React, { Component } from "react";
 //import Input from "react-validation/build/input";
 import Input from "react-validation/build/input";
 import Form from "react-validation/build/form";
+import {isEmail} from "validator";
 
 export default class Newsletter extends Component {  
   
@@ -72,9 +73,7 @@ console.log("here");
   <div className="form-group">
                   <button className="btn btn-primary btn-block">Sumbit</button>
                 </div>
-
-
-
+  
   </div>
   </div>
   </Form>

@@ -20,7 +20,7 @@ export default class Success extends Component {
         <div>
         <header className="jumbotron">
           <h3>
-            <strong> User Registered Successfully</strong>
+            <strong> Registered Successfully</strong>
           </h3>
         </header>
         </div>

@@ -7,12 +7,48 @@ export default class Profile extends Component {
     super(props);
 
     this.state = {
-      redirect: null,
-      userReady: false,
-      currentUser: { username: "" }
+     content:""
     };
   }
 
+  componentDidMount() {
+
+    if(AuthService.getCurrentUser()) {
+    AuthService.getProfile(AuthService.getCurrentUser().user).then(
+      response => {
+        console.log("**profile" + JSON.stringify(response));
+        if(response.message == "Unauthorized!" || response.message == "No token provided!" )
+        {
+          AuthService.logout();
+          this.props.history.push("/home");
+          window.location.reload();
+        } 
+        this.setState(
+          {
+            content :response
+          });
+      },
+      error => {
+        console.log("*** Profile Error ");
+        AuthService.logout();
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        this.setState({
+          loading: false,
+          content: error
+        });
+  }
+    );
+} else {
+  this.props.history.push("/home");
+  window.location.reload();
+}
+}
  
 
   render() {
@@ -25,7 +61,7 @@ export default class Profile extends Component {
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>Welcome user </strong>
+            <strong>{this.state.content.message}</strong>
           </h3>
         </header>
         </div>

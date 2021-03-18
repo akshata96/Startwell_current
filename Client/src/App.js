@@ -30,22 +30,30 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
+      currentUser:undefined,
       showModeratorBoard: false,
   
     };
   }
 
   componentDidMount() {
-    const user = AuthService.getCurrentUser();
-
-    if (user) {
+    const localStorage = AuthService.getCurrentUser();
+    console.log("** APP Mount " + localStorage);
+    if(localStorage) {
+    if (localStorage.user) {
       this.setState({
-        currentUser: user,
+        currentUser: localStorage.user,
       });
     }
   }
+  }
 
   logOut() {
+    console.log("logout");
+    this.state = {
+      currentUser:undefined
+  
+    };
     AuthService.logout();
   }
 
@@ -60,36 +68,42 @@ class App extends Component {
         <div className="logo" />
   
        
-        
+        {currentUser ? (
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-          <Menu.Item key="1" style={{float:"right"}}><Avatar size={64} style={{float:'right'}} icon={<UserOutlined />} /></Menu.Item>  
+          <Menu.Item key="1" style={{float:"right"}} onClick={this.logOut}><Link to={"/login"} > Logout</Link></Menu.Item>  
           <Menu.Item key="2" style={{float:"right"}}>About</Menu.Item>
           <Menu.Item key="3" style={{float:"right"}}>Contact Us</Menu.Item>
-          <Menu.Item key="4" style={{float:"right"}}>Self Help</Menu.Item>
-          <Menu.Item key="5" style={{float:"right"}}>Home</Menu.Item>
+          <Menu.Item key="4" style={{float:"right"}}><Link to={"/Newsletter"} >Newsletter</Link></Menu.Item>
+          <Menu.Item key="5" style={{float:"right"}}><Link to={"/home"} >Home</Link></Menu.Item>
           <img
             width={50}
             src={logo}
             />
           
         </Menu>
+        ) :(
+
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+          <Menu.Item key="1" style={{float:"right"}}><Link to={"/login"} > <Avatar size={64} style={{float:'right'}} icon={<UserOutlined />} /></Link></Menu.Item>  
+          <Menu.Item key="2" style={{float:"right"}}>About</Menu.Item>
+          <Menu.Item key="3" style={{float:"right"}}>Contact Us</Menu.Item>
+          <Menu.Item key="4" style={{float:"right"}}><Link to={"/Newsletter"} >Newsletter</Link></Menu.Item>
+          <Menu.Item key="5" style={{float:"right"}}><Link to={"/home"} >Home</Link></Menu.Item>
+          <img
+            width={50}
+            src={logo}
+            />
+          
+        </Menu>
+        ) }
       </Header>
      
     </Layout>
-    <Router>
-      <header className="App-header">
-      <Route 
-        exact 
-        path = {"/home"} 
-        render = {props =>(
-         <Home />
-        )}
-        />
-      </header>
-      </Router>
+   
 
         <div className="container mt-3">
           <Switch>
+          <Route exact path={["/","/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
