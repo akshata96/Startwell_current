@@ -4,7 +4,7 @@ import { Button, Descriptions, Divider, Tag, Typography} from 'antd';
 import { AppstoreOutlined, MailOutlined, SettingOutlined, UserOutlined, PoweroffOutlined, FrownOutlined, MehOutlined } from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb, Avatar, Card, Col, Row, Image, Collapse, Badge, Rate} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
-import './UserDashboard.css';
+import '../css/UserDashboard.css';
 import logo from '../Assets/SmartLogo.png'
 import profimg from '../Assets/prof.png'
 const { Header, Content, Footer, Sider } = Layout;
