@@ -3,9 +3,8 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
-
-
-
+import ForgotPassword from "./ForgotPassword.js";
+import { Switch, Route, Link } from "react-router-dom";
 import 'antd/dist/antd.css';
 import { Button, Typography} from 'antd';
 import { UserOutlined, PoweroffOutlined } from '@ant-design/icons';
@@ -143,15 +142,13 @@ export default class Login extends Component {
             <div className="form-group">
               <button
                 className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-              >
+                disabled={this.state.loading}>
                 {this.state.loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
                 <span>Login</span>
               </button>
             </div>
-
             {this.state.message && (
               <div className="form-group">
                 <div className="alert alert-danger" role="alert">
@@ -166,6 +163,9 @@ export default class Login extends Component {
               }}
             />
           </Form>
+          <Link to={"/ForgotPassword"}>
+          <button className="forgot-password">Forgot Password</button>
+          </Link>
         </div>
       </div>
    

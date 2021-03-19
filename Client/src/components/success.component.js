@@ -8,15 +8,9 @@ export default class Success extends Component {
 
   }
 
- 
-
   render() {
- 
 
-    return (
-    
-    
-       
+    return ( 
         <div>
         <header className="jumbotron">
           <h3>

@@ -9,7 +9,8 @@ import Register from "./components/register.component";
 import Profile from "./components/profile.component";
 import Home  from './components/home.component';
 import Newsletter from "./components/Newsletter.component";
-
+import ForgotPassword from "./components/ForgotPassword"
+import ResetPassword from "./components/ResetPassword"
 
 import 'antd/dist/antd.css';
 
@@ -109,6 +110,8 @@ class App extends Component {
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/success" component={Success} />
             <Route exact path="/Newsletter" component={Newsletter} />
+            <Route exact path="/ForgotPassword" component={ForgotPassword} />
+            <Route exact path="/ResetPassword" component={ResetPassword} />
 
           </Switch>
         </div>
